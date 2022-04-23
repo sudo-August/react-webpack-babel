@@ -4,10 +4,11 @@ This is meant to be a template so that I can quickly start new projects.
 <br>
 
 ### Stack
-- Reach
+- React
 - Webpack
 - Babel
 - MUI
+- React-Router-DOM
 
 ### to Run
 
