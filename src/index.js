@@ -5,13 +5,13 @@ import { ThemeProvider } from '@mui/system';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import App from './app';
-import theme from './style/theme';
+import { darkTheme, lightTheme } from './style/theme';
 
 const container = document.getElementById('app');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 root.render(
   <BrowserRouter>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={window.matchMedia('(prefers-color-scheme: dark)').matches ? darkTheme : lightTheme}>
       <CssBaseline />
       <App />
     </ThemeProvider>
