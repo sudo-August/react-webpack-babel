@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom"
+import { useCookies } from 'react-cookie'
 
 import { ResponsiveAppBar } from './components/navbar'
 import { Account } from './views/account'
@@ -14,9 +15,9 @@ import { Home } from './views/home'
 import { Messages } from './views/messages'
 import { Reports } from './views/reports'
 import { Settings } from './views/settings'
+import { SignIn } from './views/sign-in'
 
-export default function App() {
-
+const AppSignedIn = () => {
   return (
     <React.Fragment>
       <ResponsiveAppBar />
@@ -32,4 +33,14 @@ export default function App() {
       </Routes>
     </React.Fragment>
   )
+}
+
+export default function App() {
+  const [cookies, setCookie] = useCookies(['jwt'])
+
+  if (cookies.jwt) {
+    return <AppSignedIn />
+  } else {
+    return <SignIn />
+  }
 };
