@@ -3,12 +3,12 @@ import Container from '@mui/material/Container'
 
 import { SignInForm } from '../components/sign-in-form'
 
-export const SignIn = ({ setIsSignedIn }) => {
+export const SignIn = ({ setAuthState }) => {
 
   return (
     <Container>
       <h1>Sign In</h1>
-      <SignInForm />
+      <SignInForm setAuthState={setAuthState} />
     </Container>
   )
 }

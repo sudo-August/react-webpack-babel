@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,7 +6,9 @@ import {
 } from "react-router-dom"
 import { useCookies } from 'react-cookie'
 
-import { ResponsiveAppBar } from './components/navbar'
+import { AppBarOne } from './components/navbar-one'
+import { AppBarTwo } from './components/navbar-two'
+import { AppBarZero } from './components/navbar-zero'
 import { Account } from './views/account'
 import { Dashboard } from './views/dashboard'
 import { Blog } from './views/blog'
@@ -17,18 +19,41 @@ import { Reports } from './views/reports'
 import { Settings } from './views/settings'
 import { SignIn } from './views/sign-in'
 
-const AppSignedIn = () => {
+const AppOne = ({ setAuthState }) => {
   return (
     <React.Fragment>
-      <ResponsiveAppBar />
+      <AppBarOne />
       <Routes>
-        <Route path='dashboard' element={<Dashboard />} />
         <Route path='reports' element={<Reports />} />
-        <Route path='messages' element={<Messages />} />
-        <Route path='blog' element={<Blog />} />
         <Route path='account' element={<Account />} />
         <Route path='settings' element={<Settings />} />
         <Route path='billing' element={<Billing />} />
+        <Route path='/' element={<Dashboard />} />
+      </Routes>
+    </React.Fragment>
+  )
+}
+
+const AppTwo = ({ setAuthState }) => {
+  return (
+    <React.Fragment>
+      <AppBarTwo />
+      <Routes>
+        <Route path='blog' element={<Blog />} />
+        <Route path='account' element={<Account />} />
+        <Route path='settings' element={<Settings />} />
+        <Route path='/' element={<Messages />} />
+      </Routes>
+    </React.Fragment>
+  )
+}
+
+const AppSignedOut = ({ setAuthState }) => {
+  return (
+    <React.Fragment>
+      <AppBarZero />
+      <Routes>
+        <Route path='sign-in' element={<SignIn setAuthState={setAuthState} />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </React.Fragment>
@@ -37,10 +62,9 @@ const AppSignedIn = () => {
 
 export default function App() {
   const [cookies, setCookie] = useCookies(['jwt'])
+  const [authState, setAuthState] = useState(0)
 
-  if (cookies.jwt) {
-    return <AppSignedIn />
-  } else {
-    return <SignIn />
-  }
+  const apps = [<AppSignedOut setAuthState={setAuthState} />, <AppOne setAuthState={setAuthState} />, <AppTwo setAuthState={setAuthState} />]
+
+  return apps[authState]
 };

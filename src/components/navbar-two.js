@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom'
 const pages = ['Dashboard', 'Reports', 'Messages', 'Blog']
 const settings = ['Account', 'Settings', 'Billing', 'Logout']
 
-export const ResponsiveAppBar = () => {
+export const AppBarTwo = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

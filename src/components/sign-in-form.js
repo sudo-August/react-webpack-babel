@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import { useCookies } from 'react-cookie'
 import { Formik } from 'formik';
 
-export const SignInForm = () => {
+export const SignInForm = ({ setAuthState }) => {
   const [cookies, setCookie] = useCookies(['jwt'])
 
   const handleSubmit = () => {
@@ -30,6 +30,7 @@ export const SignInForm = () => {
        }}
        onSubmit={(values, { setSubmitting }) => {
          setCookie('jwt', values.email);
+         setAuthState(1)
          setTimeout(() => {
            alert(JSON.stringify(values, null, 2));
            setSubmitting(false);
